@@ -15,21 +15,21 @@ struct Package {
     manifest_path: String,
 }
 
-/// 与えられたクレート名のマニフェストファイルへのパスを返す関数です。
+/// Returns the manifest file path of the specified crate.
 ///
-/// `cargo metadata`コマンドを使用して、現在のプロジェクトの依存関係のメタデータを取得し、
-/// 指定されたクレート名に一致するクレートのマニフェストファイル（`Cargo.toml`）へのパスを返します。
+/// Uses the `cargo metadata` command to obtain metadata about the current project's dependencies,
+/// and returns the path to the manifest file (`Cargo.toml`) of the crate that matches the specified crate name.
 ///
-/// # 引数
+/// # Arguments
 ///
-/// * `target_crate_name` - 探す対象のクレート名（例: "serde"）
+/// * `target_crate_name` - The crate name to search for (e.g., "serde")
 ///
-/// # 返り値
+/// # Returns
 ///
-/// 指定されたクレートのマニフェストファイルへのパスを表す`String`。
-/// クレートが見つからない場合、この関数はパニックします。
+/// A `String` representing the path to the specified crate's manifest file.
+/// This function will panic if the crate cannot be found.
 ///
-/// # 例
+/// # Example
 ///
 /// ```
 /// use get_crate_manifest_path::get_crate_manifest_path;
@@ -39,10 +39,10 @@ struct Package {
 /// println!("serde crate manifest path: {}", manifest_path);
 /// ```
 ///
-/// # 注意
+/// # Note
 ///
-/// この関数は、システムにcargoコマンドがインストールされていることを前提としています。
-/// また、環境によってはパフォーマンスに影響する可能性があります。
+/// This function assumes that the cargo command is installed on the system.
+/// Also, depending on the environment, it may affect performance.
 pub fn get_crate_manifest_path(target_crate_name: &str) -> String {
     let output = Command::new("cargo")
         .args(&["metadata", "--format-version=1"])
